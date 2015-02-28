@@ -36,7 +36,6 @@ void MainWindow::openFile()
     
     QByteArray data = file.readAll();
     file.close();
-    qDebug() << data;
     
     QFileInfo info(file);
     m_szLastFilePath = info.canonicalFilePath();
@@ -48,7 +47,19 @@ void MainWindow::openFile()
     }
     else
     {
-        document = QJsonDocument::fromJson(data);
+        QJsonParseError er;
+        document = QJsonDocument::fromJson(data, &er);
+        if ( er.error != QJsonParseError::NoError )
+        {
+            QMessageBox::critical(this, "Error", QString("An error occurred while parsing the JSON document: \"%0\" at position %1.").arg(er.errorString()).arg(er.offset));
+            return;
+        }
+    }
+    
+    if ( document.isNull() )
+    {
+        QMessageBox::critical(this, "Error", QString("An error occurred while parsing the JSON document."));
+        return;
     }
     
     ui->jsWidget->readFrom(document);
