@@ -1,5 +1,5 @@
-#ifndef JSONWINDOW_H
-#define JSONWINDOW_H
+#ifndef JSONWIDGET_H
+#define JSONWIDGET_H
 
 #include <QWidget>
 #include <QJsonDocument>
@@ -45,4 +45,4 @@ private:
     QTextEdit*          m_pText;
 };
 
-#endif // JSONWINDOW_H
+#endif // JSONWIDGET_H
