@@ -63,4 +63,7 @@ void MainWindow::openFile()
     }
     
     ui->jsWidget->readFrom(document);
+
+    int index = m_szLastFilePath.lastIndexOf('/');
+    setWindowTitle(m_szLastFilePath.mid(index+1));
 }
